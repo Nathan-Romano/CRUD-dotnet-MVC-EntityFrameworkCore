@@ -6,26 +6,29 @@
 
 @model List<CRUD_MVC_SQL.Models.Entities.Employee>
 
-<h1>Employee</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Salary</th>
-        </tr>
-    </thead>
-        <tbody>
-            @foreach (var employee in Model)
-            {
+<div class="d-flex justify-content-center">
+    <div class="col-md-6">
+        <h1>Employees</h1>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@employee.Id</td>
-                    <td>@employee.Name</td>
-                    <td>@employee.Position</td>
-                    <td>@employee.Salary</td>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
                 </tr>
-            }
-        </tbody>
-</table>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.Name</td>
+                        <td>@employee.Position</td>
+                        <td>@employee.Salary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
