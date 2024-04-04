@@ -2,6 +2,7 @@
 using CRUD_MVC_SQL.Models;
 using CRUD_MVC_SQL.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRUD_MVC_SQL.Controllers
 {
@@ -29,8 +30,15 @@ namespace CRUD_MVC_SQL.Controllers
                 Salary = viewModel.Salary,
             };
             await dbContext.Employees.AddAsync(employee);
-            await dbContext.SaveChangesAsync();  
-            return View(viewModel);
+            await dbContext.SaveChangesAsync();
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var employee = await dbContext.Employees.ToListAsync();
+            return View(employee);
         }
     }
 }
