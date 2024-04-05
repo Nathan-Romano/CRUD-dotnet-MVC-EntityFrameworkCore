@@ -40,5 +40,41 @@ namespace CRUD_MVC_SQL.Controllers
             var employee = await dbContext.Employees.ToListAsync();
             return View(employee);
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var employee = await dbContext.Employees.FindAsync(id);
+
+            return View(employee);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Employee viewModel)
+        {
+            var employee = await dbContext.Employees.FindAsync(viewModel.Id);
+
+            if (employee is not null)
+            {
+                employee.Name = viewModel.Name;
+                employee.Position = viewModel.Position;
+                employee.Salary = viewModel.Salary;
+
+                await dbContext.SaveChangesAsync();
+            }
+                return RedirectToAction("List", "Employee");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Delete(Employee viewModel)
+        {
+            var employee = await dbContext.Employees
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+
+            if (employee is not null)
+            {
+                dbContext.Employees.Remove(viewModel);
+                await dbContext.SaveChangesAsync();
+            }
+            return RedirectToAction("List", "Employee");
+        }
     }
 }
